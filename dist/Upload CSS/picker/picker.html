@@ -5,494 +5,925 @@
   Open this file straight in a browser to preview it with pretend data (preview.js).
 -->
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<title>Upload CSS to iCM</title>
-<link rel="stylesheet" href="picker.css">
-</head>
-<body>
-<div class="window main">
-  <div class="title-bar">
-    <svg class="icon" viewBox="0 0 16 16" aria-hidden="true">
-      <rect x="1" y="2" width="14" height="10" fill="#c0c0c0" stroke="#000"/>
-      <rect x="3" y="4" width="10" height="6" fill="#008080"/>
-      <rect x="5" y="12" width="6" height="2" fill="#808080"/><rect x="3" y="14" width="10" height="1" fill="#000"/>
-      <path d="M8 5l2.5 2.5H9V9H7V7.5H5.5z" fill="#fff"/>
-    </svg>
-    <span class="text">Upload CSS to iCM</span>
-    <button type="button" class="close" id="quit" aria-label="Close without uploading" title="Close without uploading">×</button>
-  </div>
-  <div class="menu-bar">
-    <button type="button" class="menu" id="settings-open"><u>S</u>ettings…</button>
-    <button type="button" class="menu" id="help-open"><u>H</u>elp</button>
-  </div>
+	<head>
+		<meta charset="utf-8" />
+		<title>Upload CSS to iCM</title>
+		<link rel="stylesheet" href="picker.css" />
+	</head>
+	<body>
+		<div class="window main">
+			<div class="title-bar">
+				<svg class="icon" viewBox="0 0 16 16" aria-hidden="true">
+					<rect
+						x="1"
+						y="2"
+						width="14"
+						height="10"
+						fill="#c0c0c0"
+						stroke="#000"
+					/>
+					<rect x="3" y="4" width="10" height="6" fill="#008080" />
+					<rect x="5" y="12" width="6" height="2" fill="#808080" />
+					<rect x="3" y="14" width="10" height="1" fill="#000" />
+					<path d="M8 5l2.5 2.5H9V9H7V7.5H5.5z" fill="#fff" />
+				</svg>
+				<span class="text">Upload CSS to iCM</span>
+				<button
+					type="button"
+					class="close"
+					id="quit"
+					aria-label="Close without uploading"
+					title="Close without uploading"
+				>
+					×
+				</button>
+			</div>
+			<div class="menu-bar">
+				<button type="button" class="menu" id="settings-open">
+					<u>S</u>ettings…
+				</button>
+				<button type="button" class="menu" id="help-open"><u>H</u>elp</button>
+			</div>
 
-  <div class="body">
-    <section class="group">
-      <h2>1. Choose an environment</h2>
-      <div class="box">
-        <div class="envs"></div>
-        <div class="browser-row">
-          <span class="browser-heading" id="browser-heading">Open iCM in:</span>
-          <div class="browsers" role="radiogroup" aria-labelledby="browser-heading"></div>
-        </div>
-      </div>
-    </section>
+			<div class="body">
+				<section class="group">
+					<h2>1. Choose an environment</h2>
+					<div class="box">
+						<div class="envs"></div>
+						<div class="browser-row">
+							<span class="browser-heading" id="browser-heading"
+								>Open iCM in:</span
+							>
+							<div
+								class="browsers"
+								role="radiogroup"
+								aria-labelledby="browser-heading"
+							></div>
+						</div>
+					</div>
+				</section>
 
-    <section class="group">
-      <h2>2. Tick the sites to upload</h2>
-      <div class="box">
-        <div class="folder">
-          <label for="folder">Sites folder:</label>
-          <input type="text" id="folder" spellcheck="false" autocomplete="off"
-            title="The folder that has the site folders in it. Type or paste a path, then press Enter.">
-          <button type="button" class="button" id="browse"><span>Browse…</span></button>
-        </div>
-        <p class="folder-msg" id="folder-msg" role="status"></p>
-        <div class="tools">
-          <button type="button" class="button" id="all"><span>Select all</span></button>
-          <button type="button" class="button" id="none"><span>Select none</span></button>
-        </div>
-        <p class="hint">A note is saved in iCM's version history when the site is updated.
-          Leave it blank to update without a note. Tick <b>Significant</b> to mark the update as a
-          significant change.</p>
-        <div class="find">
-          <label for="find">Find site:</label>
-          <input type="search" id="find" placeholder="Type part of a site name (Ctrl+F)" autocomplete="off">
-          <span id="find-count"></span>
-        </div>
-        <div class="note-all">
-          <label for="note-all">Same note for all:</label>
-          <input type="text" id="note-all" maxlength="250" placeholder="Type a note, then click Fill blanks">
-          <label class="all-sig"><input type="checkbox" id="sig-all"> Significant</label>
-          <button type="button" class="button" id="note-fill"><span>Fill blanks</span></button>
-        </div>
-        <div class="sites"><div id="site-rows"></div><p class="no-match" id="no-match">No sites match.</p></div>
-      </div>
-    </section>
+				<section class="group">
+					<h2>2. Tick the sites to upload</h2>
+					<div class="box">
+						<div class="folder">
+							<label for="folder">Sites folder:</label>
+							<input
+								type="text"
+								id="folder"
+								spellcheck="false"
+								autocomplete="off"
+								title="The folder that has the site folders in it. Type or paste a path, then press Enter."
+							/>
+							<button type="button" class="button" id="browse">
+								<span>Browse…</span>
+							</button>
+						</div>
+						<p class="folder-msg" id="folder-msg" role="status"></p>
+						<div class="tools">
+							<button type="button" class="button" id="all">
+								<span>Select all</span>
+							</button>
+							<button type="button" class="button" id="none">
+								<span>Select none</span>
+							</button>
+						</div>
+						<p class="hint">
+							A note is saved in iCM's version history when the site is updated.
+							Leave it blank to update without a note. Tick
+							<b>Significant</b> to mark the update as a significant change.
+						</p>
+						<div class="find">
+							<label for="find">Find site:</label>
+							<input
+								type="search"
+								id="find"
+								placeholder="Type part of a site name (Ctrl+F)"
+								autocomplete="off"
+							/>
+							<span id="find-count"></span>
+						</div>
+						<div class="note-all">
+							<label for="note-all">Same note for all:</label>
+							<input
+								type="text"
+								id="note-all"
+								maxlength="250"
+								placeholder="Type a note, then click Fill blanks"
+							/>
+							<label class="all-sig"
+								><input type="checkbox" id="sig-all" /> Significant</label
+							>
+							<button type="button" class="button" id="note-fill">
+								<span>Fill blanks</span>
+							</button>
+						</div>
+						<div class="sites">
+							<div id="site-rows"></div>
+							<p class="no-match" id="no-match">No sites match.</p>
+						</div>
+					</div>
+				</section>
 
-    <div class="warning" id="warning">
-      <svg class="sign" viewBox="0 0 28 26" aria-hidden="true">
-        <path d="M14 1L27 25H1z" fill="#ff0" stroke="#000" stroke-width="1.5" stroke-linejoin="round"/>
-        <rect x="12.5" y="8" width="3" height="10" fill="#000"/><rect x="12.5" y="20" width="3" height="3" fill="#000"/>
-      </svg>
-      <span>This uploads to <b>LIVE</b>. Click the button twice to confirm.</span>
-    </div>
+				<div class="warning" id="warning">
+					<svg class="sign" viewBox="0 0 28 26" aria-hidden="true">
+						<path
+							d="M14 1L27 25H1z"
+							fill="#ff0"
+							stroke="#000"
+							stroke-width="1.5"
+							stroke-linejoin="round"
+						/>
+						<rect x="12.5" y="8" width="3" height="10" fill="#000" />
+						<rect x="12.5" y="20" width="3" height="3" fill="#000" />
+					</svg>
+					<span
+						>This uploads to <b>LIVE</b>. Click the button twice to
+						confirm.</span
+					>
+				</div>
 
-    <div class="actions">
-      <button type="button" class="button" id="start" disabled><span id="start-text">Choose an environment</span></button>
-    </div>
-  </div>
+				<div class="actions">
+					<button type="button" class="button" id="start" disabled>
+						<span id="start-text">Choose an environment</span>
+					</button>
+				</div>
+			</div>
 
-  <div class="status-bar">
-    <p id="status">Ready</p>
-    <p id="count"></p>
-  </div>
-</div>
+			<div class="status-bar">
+				<p id="status">Ready</p>
+				<p id="count"></p>
+			</div>
+		</div>
 
-<div class="overlay" id="settings-box" role="dialog" aria-modal="true" aria-labelledby="settings-title">
-  <div class="window dialog settings-dialog">
-    <div class="title-bar">
-      <span class="text" id="settings-title">Settings</span>
-      <button type="button" class="close" id="settings-x" aria-label="Close">×</button>
-    </div>
-    <form class="settings-body" id="settings-form" novalidate>
-      <div class="welcome" id="settings-welcome" hidden>
-        <svg class="welcome-icon" viewBox="0 0 32 32" aria-hidden="true">
-          <circle cx="16" cy="16" r="14" fill="#fff" stroke="#000"/>
-          <rect x="14" y="13" width="4" height="12" fill="#000080"/><rect x="14" y="7" width="4" height="4" fill="#000080"/>
-        </svg>
-        <div>
-          <p><b>Welcome! Set this up once.</b></p>
-          <p>Fill in the boxes below and click <b>Save</b>. They're saved in the
-             <code>.env</code> file in the goss-upload folder, so you won't be asked again.
-             You can change them any time from <b>Settings…</b> in the menu.</p>
-        </div>
-      </div>
+		<div
+			class="overlay"
+			id="settings-box"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="settings-title"
+		>
+			<div class="window dialog settings-dialog">
+				<div class="title-bar">
+					<span class="text" id="settings-title">Settings</span>
+					<button
+						type="button"
+						class="close"
+						id="settings-x"
+						aria-label="Close"
+					>
+						×
+					</button>
+				</div>
+				<form class="settings-body" id="settings-form" novalidate>
+					<div class="welcome" id="settings-welcome" hidden>
+						<svg class="welcome-icon" viewBox="0 0 32 32" aria-hidden="true">
+							<circle cx="16" cy="16" r="14" fill="#fff" stroke="#000" />
+							<rect x="14" y="13" width="4" height="12" fill="#000080" />
+							<rect x="14" y="7" width="4" height="4" fill="#000080" />
+						</svg>
+						<div>
+							<p><b>Welcome! Set this up once.</b></p>
+							<p>
+								Fill in the boxes below and click <b>Save</b>. They're saved in
+								the <code>.env</code> file in the goss-upload folder, so you
+								won't be asked again. You can change them any time from
+								<b>Settings…</b> in the menu.
+							</p>
+						</div>
+					</div>
 
-      <fieldset class="settings-group">
-        <legend>Sites folder</legend>
-        <p class="field-help">The folder that holds one folder per site, each with its built
-           <code>&lt;site&gt;.css</code> inside. Usually <code>GOSS-skin\global\sites</code>.</p>
-        <div class="field-row">
-          <input type="text" id="set-SITES_DIR" name="SITES_DIR" spellcheck="false" autocomplete="off"
-            aria-label="Sites folder">
-          <button type="button" class="button" id="set-browse"><span>Browse…</span></button>
-        </div>
-        <p class="field-problem" data-for="SITES_DIR"></p>
-      </fieldset>
+					<fieldset class="settings-group">
+						<legend>Sites folder</legend>
+						<p class="field-help">
+							The folder that holds one folder per site, each with its built
+							<code>&lt;site&gt;.css</code> inside. Usually
+							<code>GOSS-skin\global\sites</code>.
+						</p>
+						<div class="field-row">
+							<input
+								type="text"
+								id="set-SITES_DIR"
+								name="SITES_DIR"
+								spellcheck="false"
+								autocomplete="off"
+								aria-label="Sites folder"
+							/>
+							<button type="button" class="button" id="set-browse">
+								<span>Browse…</span>
+							</button>
+						</div>
+						<p class="field-problem" data-for="SITES_DIR"></p>
+					</fieldset>
 
-      <fieldset class="settings-group">
-        <legend>iCM login pages</legend>
-        <p class="field-help">The full link to the iCM login page for each environment.</p>
-        <div class="link-grid">
-          <label for="set-ICM_DEV_URL">Development</label>
-          <input type="url" id="set-ICM_DEV_URL" name="ICM_DEV_URL" spellcheck="false" autocomplete="off">
-          <p class="field-problem" data-for="ICM_DEV_URL"></p>
-          <label for="set-ICM_TST_URL">Test</label>
-          <input type="url" id="set-ICM_TST_URL" name="ICM_TST_URL" spellcheck="false" autocomplete="off">
-          <p class="field-problem" data-for="ICM_TST_URL"></p>
-          <label for="set-ICM_PRP_URL">Preprod</label>
-          <input type="url" id="set-ICM_PRP_URL" name="ICM_PRP_URL" spellcheck="false" autocomplete="off">
-          <p class="field-problem" data-for="ICM_PRP_URL"></p>
-          <label for="set-ICM_PRD_URL">Live</label>
-          <input type="url" id="set-ICM_PRD_URL" name="ICM_PRD_URL" spellcheck="false" autocomplete="off">
-          <p class="field-problem" data-for="ICM_PRD_URL"></p>
-        </div>
-      </fieldset>
+					<fieldset class="settings-group">
+						<legend>iCM login pages</legend>
+						<p class="field-help">
+							The full link to the iCM login page for each environment.
+						</p>
+						<div class="link-grid">
+							<label for="set-ICM_DEV_URL">Development</label>
+							<input
+								type="url"
+								id="set-ICM_DEV_URL"
+								name="ICM_DEV_URL"
+								spellcheck="false"
+								autocomplete="off"
+							/>
+							<p class="field-problem" data-for="ICM_DEV_URL"></p>
+							<label for="set-ICM_TST_URL">Test</label>
+							<input
+								type="url"
+								id="set-ICM_TST_URL"
+								name="ICM_TST_URL"
+								spellcheck="false"
+								autocomplete="off"
+							/>
+							<p class="field-problem" data-for="ICM_TST_URL"></p>
+							<label for="set-ICM_PRP_URL">Preprod</label>
+							<input
+								type="url"
+								id="set-ICM_PRP_URL"
+								name="ICM_PRP_URL"
+								spellcheck="false"
+								autocomplete="off"
+							/>
+							<p class="field-problem" data-for="ICM_PRP_URL"></p>
+							<label for="set-ICM_PRD_URL">Live</label>
+							<input
+								type="url"
+								id="set-ICM_PRD_URL"
+								name="ICM_PRD_URL"
+								spellcheck="false"
+								autocomplete="off"
+							/>
+							<p class="field-problem" data-for="ICM_PRD_URL"></p>
+						</div>
+					</fieldset>
 
-      <fieldset class="settings-group">
-        <legend>Browser</legend>
-        <div class="settings-browsers">
-          <label class="browser-option"><input type="radio" name="BROWSER" value="msedge" class="browser-choice"> Microsoft Edge</label>
-          <label class="browser-option"><input type="radio" name="BROWSER" value="chrome" class="browser-choice"> Google Chrome</label>
-          <label class="browser-option"><input type="radio" name="BROWSER" value="" class="browser-choice"> Ask each time</label>
-        </div>
-        <p class="field-problem" data-for="BROWSER"></p>
-      </fieldset>
+					<fieldset class="settings-group">
+						<legend>Browser</legend>
+						<div class="settings-browsers">
+							<label class="browser-option"
+								><input
+									type="radio"
+									name="BROWSER"
+									value="msedge"
+									class="browser-choice"
+								/>
+								Microsoft Edge</label
+							>
+							<label class="browser-option"
+								><input
+									type="radio"
+									name="BROWSER"
+									value="chrome"
+									class="browser-choice"
+								/>
+								Google Chrome</label
+							>
+							<label class="browser-option"
+								><input
+									type="radio"
+									name="BROWSER"
+									value=""
+									class="browser-choice"
+								/>
+								Ask each time</label
+							>
+						</div>
+						<p class="field-problem" data-for="BROWSER"></p>
+					</fieldset>
 
-      <fieldset class="settings-group">
-        <legend>Test mode</legend>
-        <label class="check-option"><input type="checkbox" id="set-LEARN_MODE" name="LEARN_MODE" class="plain-check">
-          Upload only the first ticked site and save extra pictures (for testing changes)</label>
-      </fieldset>
+					<fieldset class="settings-group">
+						<legend>Test mode</legend>
+						<label class="check-option"
+							><input
+								type="checkbox"
+								id="set-LEARN_MODE"
+								name="LEARN_MODE"
+								class="plain-check"
+							/>
+							Upload only the first ticked site and save extra pictures (for
+							testing changes)</label
+						>
+					</fieldset>
 
-      <p class="settings-message" id="settings-message" role="status"></p>
-    </form>
-    <div class="actions">
-      <button type="button" class="button" id="settings-save"><span>Save</span></button>
-      <button type="button" class="button" id="settings-cancel"><span>Cancel</span></button>
-    </div>
-  </div>
-</div>
+					<p class="settings-message" id="settings-message" role="status"></p>
+				</form>
+				<div class="actions">
+					<button type="button" class="button" id="settings-save">
+						<span>Save</span>
+					</button>
+					<button type="button" class="button" id="settings-cancel">
+						<span>Cancel</span>
+					</button>
+				</div>
+			</div>
+		</div>
 
-<div class="overlay browse" id="browse-box" role="dialog" aria-modal="true" aria-labelledby="browse-title">
-  <div class="window dialog">
-    <div class="title-bar">
-      <span class="text" id="browse-title">Browse for Folder</span>
-      <button type="button" class="close" id="browse-x" aria-label="Close">×</button>
-    </div>
-    <div class="browse-body">
-      <p style="margin:0">Choose the folder that has the <b>site folders</b> in it, like GOSS-skin › global › sites.
-        Double-click a folder to open it.</p>
-      <div class="look-in">
-        <label for="browse-path">Look in:</label>
-        <input type="text" id="browse-path" spellcheck="false" autocomplete="off" title="Type or paste a folder and press Enter">
-        <button type="button" class="button" id="browse-up"><span>Up one</span></button>
-      </div>
-      <div class="shortcuts"></div>
-      <div class="folder-list" id="folder-list" role="listbox" aria-label="Folders"></div>
-      <p class="browse-status" id="browse-status" role="status"></p>
-    </div>
-    <div class="actions">
-      <button type="button" class="button" id="browse-ok"><span>OK</span></button>
-      <button type="button" class="button" id="browse-cancel"><span>Cancel</span></button>
-    </div>
-  </div>
-</div>
+		<div
+			class="overlay browse"
+			id="browse-box"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="browse-title"
+		>
+			<div class="window dialog">
+				<div class="title-bar">
+					<span class="text" id="browse-title">Browse for Folder</span>
+					<button type="button" class="close" id="browse-x" aria-label="Close">
+						×
+					</button>
+				</div>
+				<div class="browse-body">
+					<p style="margin: 0">
+						Choose the folder that has the <b>site folders</b> in it, like
+						GOSS-skin › global › sites. Double-click a folder to open it.
+					</p>
+					<div class="look-in">
+						<label for="browse-path">Look in:</label>
+						<input
+							type="text"
+							id="browse-path"
+							spellcheck="false"
+							autocomplete="off"
+							title="Type or paste a folder and press Enter"
+						/>
+						<button type="button" class="button" id="browse-up">
+							<span>Up one</span>
+						</button>
+					</div>
+					<div class="shortcuts"></div>
+					<div
+						class="folder-list"
+						id="folder-list"
+						role="listbox"
+						aria-label="Folders"
+					></div>
+					<p class="browse-status" id="browse-status" role="status"></p>
+				</div>
+				<div class="actions">
+					<button type="button" class="button" id="browse-ok">
+						<span>OK</span>
+					</button>
+					<button type="button" class="button" id="browse-cancel">
+						<span>Cancel</span>
+					</button>
+				</div>
+			</div>
+		</div>
 
-<div class="overlay" id="help" role="dialog" aria-modal="true" aria-labelledby="help-title">
-  <div class="window dialog help-dialog">
-    <div class="title-bar">
-      <span class="text" id="help-title">Help: Upload CSS to iCM</span>
-      <button type="button" class="close" id="help-x" aria-label="Close">×</button>
-    </div>
+		<div
+			class="overlay"
+			id="help"
+			role="dialog"
+			aria-modal="true"
+			aria-labelledby="help-title"
+		>
+			<div class="window dialog help-dialog">
+				<div class="title-bar">
+					<span class="text" id="help-title">Help: Upload CSS to iCM</span>
+					<button type="button" class="close" id="help-x" aria-label="Close">
+						×
+					</button>
+				</div>
 
-    <div class="help-panes">
-      <nav class="help-contents" aria-label="Help topics">
-        <p class="help-contents-title">Contents</p>
-        <button type="button" class="topic-link" data-topic="what">What it does</button>
-        <button type="button" class="topic-link" data-topic="setup">Setting it up</button>
-        <button type="button" class="topic-link" data-topic="folder">The sites folder</button>
-        <button type="button" class="topic-link" data-topic="css">What goes in the CSS file</button>
-        <button type="button" class="topic-link" data-topic="run">How to run it</button>
-        <button type="button" class="topic-link" data-topic="window">Using this window</button>
-        <button type="button" class="topic-link" data-topic="notes">Version notes and Significant</button>
-        <button type="button" class="topic-link" data-topic="envs">Environments</button>
-        <button type="button" class="topic-link" data-topic="icm">What it does in iCM</button>
-        <button type="button" class="topic-link" data-topic="wrong">If something goes wrong</button>
-        <button type="button" class="topic-link" data-topic="settings">Settings (.env)</button>
-        <button type="button" class="topic-link" data-topic="report">Reporting a problem</button>
-      </nav>
+				<div class="help-panes">
+					<nav class="help-contents" aria-label="Help topics">
+						<p class="help-contents-title">Contents</p>
+						<button type="button" class="topic-link" data-topic="what">
+							What it does
+						</button>
+						<button type="button" class="topic-link" data-topic="setup">
+							Setting it up
+						</button>
+						<button type="button" class="topic-link" data-topic="folder">
+							The sites folder
+						</button>
+						<button type="button" class="topic-link" data-topic="css">
+							What goes in the CSS file
+						</button>
+						<button type="button" class="topic-link" data-topic="run">
+							How to run it
+						</button>
+						<button type="button" class="topic-link" data-topic="window">
+							Using this window
+						</button>
+						<button type="button" class="topic-link" data-topic="notes">
+							Version notes and Significant
+						</button>
+						<button type="button" class="topic-link" data-topic="envs">
+							Environments
+						</button>
+						<button type="button" class="topic-link" data-topic="icm">
+							What it does in iCM
+						</button>
+						<button type="button" class="topic-link" data-topic="wrong">
+							If something goes wrong
+						</button>
+						<button type="button" class="topic-link" data-topic="settings">
+							Settings (.env)
+						</button>
+						<button type="button" class="topic-link" data-topic="report">
+							Reporting a problem
+						</button>
+					</nav>
 
-      <div class="help">
-        <section class="topic" data-topic="what">
-          <h3>What it does</h3>
-          <p>It uploads each site's built CSS file to GOSS iCM for you, so you don't have to
-             open every site's CSS item and upload it by hand.</p>
-          <p>For every site you tick, it:</p>
-          <ol>
-            <li>finds the site's CSS item in iCM Media,</li>
-            <li>uploads the CSS file from your sites folder,</li>
-            <li>saves it, adding your version note if you typed one.</li>
-          </ol>
-          <p>You choose the environment (Development, Test, Preprod or Live), the browser, and
-             the sites. You log in to iCM yourself; it never knows your password.</p>
-        </section>
+					<div class="help">
+						<section class="topic" data-topic="what">
+							<h3>What it does</h3>
+							<p>
+								It uploads each site's built CSS file to GOSS iCM for you, so
+								you don't have to open every site's CSS item and upload it by
+								hand.
+							</p>
+							<p>For every site you tick, it:</p>
+							<ol>
+								<li>finds the site's CSS item in iCM Media,</li>
+								<li>uploads the CSS file from your sites folder,</li>
+								<li>saves it, adding your version note if you typed one.</li>
+							</ol>
+							<p>
+								You choose the environment (Development, Test, Preprod or Live),
+								the browser, and the sites. You log in to iCM yourself; it never
+								knows your password.
+							</p>
+						</section>
 
-        <section class="topic" data-topic="setup" hidden>
-          <h3>Setting it up (once)</h3>
-          <p>You need <b>Node.js 20 or newer</b>, and <b>Microsoft Edge</b> or <b>Google Chrome</b>.</p>
-          <ol>
-            <li>Put the <code>goss-upload</code> folder next to <code>GOSS-skin</code>,
-                for example both inside <code>Repos</code>.</li>
-            <li>In the <code>goss-upload</code> folder, run <code>npm install</code> once.</li>
-            <li>Open it. The first time, a <b>Settings</b> box asks for the sites folder, the iCM
-                links and the browser, and saves them
-                (see <a href="#" class="topic-jump" data-topic="settings">Settings</a>).</li>
-            <li>Make the <b>Upload CSS</b> desktop shortcut. The steps are in
-                <code>README.md</code> in the goss-upload folder.</li>
-          </ol>
-          <p>The goss-upload folder should look like this:</p>
-<pre>goss-upload\
+						<section class="topic" data-topic="setup" hidden>
+							<h3>Setting it up (once)</h3>
+							<p>
+								You need <b>Node.js 20 or newer</b>, and
+								<b>Microsoft Edge</b> or <b>Google Chrome</b>.
+							</p>
+							<ol>
+								<li>
+									Put the <code>goss-upload</code> folder next to
+									<code>GOSS-skin</code>, for example both inside
+									<code>Repos</code>.
+								</li>
+								<li>
+									In the <code>goss-upload</code> folder, run
+									<code>npm install</code> once.
+								</li>
+								<li>
+									Open it. The first time, a <b>Settings</b> box asks for the
+									sites folder, the iCM links and the browser, and saves them
+									(see
+									<a href="#" class="topic-jump" data-topic="settings"
+										>Settings</a
+									>).
+								</li>
+								<li>
+									Make the <b>Upload CSS</b> desktop shortcut. The steps are in
+									<code>README.md</code> in the goss-upload folder.
+								</li>
+							</ol>
+							<p>The goss-upload folder should look like this:</p>
+							<pre>
+goss-upload\
   upload-css.js      does the uploading
   .env               your settings
   picker\            this window
   report\            the layout of failure pictures
-  screenshots\       failure pictures (appears when needed)</pre>
-        </section>
+  screenshots\       failure pictures (appears when needed)</pre
+							>
+						</section>
 
-        <section class="topic" data-topic="folder" hidden>
-          <h3>The sites folder</h3>
-          <p>The sites folder is the folder that <b>holds one folder per site</b>. Normally it's
-             <code>GOSS-skin\global\sites</code>. Pick that folder, not a single site's folder.</p>
-          <p>Inside it, each site needs:</p>
-          <ul>
-            <li><b>its own folder</b>, named after the site, like <code>tolhouse-gaol</code>;</li>
-            <li><b>a CSS file inside with exactly the same name</b>, plus <code>.css</code>.</li>
-          </ul>
-<pre>sites\
-  american-library\
-    american-library.css      ✓ listed
-  tolhouse-gaol\
-    tolhouse-gaol.css         ✓ listed
-  devolution\
-    styles.css                ✗ not listed: wrong file name
-  old-site\
-    (no .css file)            ✗ not listed: not built</pre>
-          <p>Only sites with a correctly named CSS file appear in the list. If a site is missing,
-             check the folder and file names match, and that the CSS has been built.</p>
-          <h4>Matching the site to iCM</h4>
-          <p>The folder name is matched to the CSS item's name in iCM Media, ignoring capitals,
-             spaces, dashes, and the words DEV, TST, PRP, PRD and CSS. So the folder
-             <code>american-library</code> matches the iCM item <i>American Library - DEV - CSS</i>.</p>
-          <p>If a site's iCM name is too different (for example the folder is
-             <code>recycles</code> but iCM calls it <i>Norfolk Recycles</i>), it needs adding to
-             <code>ALIASES</code> in <code>upload-css.js</code>.</p>
-        </section>
+						<section class="topic" data-topic="folder" hidden>
+							<h3>The sites folder</h3>
+							<p>
+								The sites folder is the folder that
+								<b>holds one folder per site</b>. Normally it's
+								<code>GOSS-skin\global\sites</code>. Pick that folder, not a
+								single site's folder.
+							</p>
+							<p>Inside it, each site needs:</p>
+							<ul>
+								<li>
+									<b>its own folder</b>, named after the site, like
+									<code>example-site</code>;
+								</li>
+								<li>
+									<b>a CSS file inside with exactly the same name</b>, plus
+									<code>.css</code>.
+								</li>
+							</ul>
+							<pre>
+sites\
+  site-one\
+    site-one.css      ✓ listed
+  site-two\
+    site-two.css      ✓ listed
+  site-three\
+    styles.css        ✗ not listed: wrong file name
+  site-four\
+    (no .css file)    ✗ not listed: not built</pre
+							>
+							<p>
+								Only sites with a correctly named CSS file appear in the list.
+								If a site is missing, check the folder and file names match, and
+								that the CSS has been built.
+							</p>
+							<h4>Matching the site to iCM</h4>
+							<p>
+								The folder name is matched to the CSS item's name in iCM Media,
+								ignoring capitals, spaces, dashes, and the words DEV, TST, PRP,
+								PRD and CSS. So the folder <code>example-site</code> matches the
+								iCM item <i>Example Site - DEV - CSS</i>.
+							</p>
+							<p>
+								If a site's iCM name is too different (for example the folder is
+								<code>example-site</code> but iCM calls it
+								<i>My Example Site</i>), it needs adding to
+								<code>ALIASES</code> in <code>upload-css.js</code>.
+							</p>
+						</section>
 
-        <section class="topic" data-topic="css" hidden>
-          <h3>What goes in the CSS file</h3>
-          <p>Each <code>&lt;site&gt;.css</code> must be the <b>finished, built CSS</b> for that site:
-             the file GOSS-skin's build produces.</p>
-          <ul>
-            <li><b>Build it first.</b> Run the GOSS-skin build so the file has your latest changes.
-                It uploads whatever is in the file at that moment.</li>
-            <li><b>The whole stylesheet, not just your changes.</b> The upload <b>replaces</b> the
-                file in iCM completely. Anything not in your file is gone from that site.</li>
-            <li><b>Plain CSS only.</b> Not SCSS/Sass, not partials, not files that need building.
-                iCM serves the file exactly as it is.</li>
-            <li><b>Keep the name the same</b> as the folder (<code>tolhouse-gaol.css</code>).</li>
-            <li><b>Check links inside the CSS</b>, like images and fonts in <code>url(...)</code>.
-                They must point to places that exist on the website, because only the CSS file
-                is uploaded, not the images or fonts it mentions.</li>
-          </ul>
-          <p>Tip: upload to <b>Development</b> or <b>Test</b> first, check the site looks right,
-             then do Preprod and Live.</p>
-        </section>
+						<section class="topic" data-topic="css" hidden>
+							<h3>What goes in the CSS file</h3>
+							<p>
+								Each <code>&lt;site&gt;.css</code> must be the
+								<b>finished, built CSS</b> for that site: the file GOSS-skin's
+								build produces.
+							</p>
+							<ul>
+								<li>
+									<b>Build it first.</b> Run the GOSS-skin build so the file has
+									your latest changes. It uploads whatever is in the file at
+									that moment.
+								</li>
+								<li>
+									<b>The whole stylesheet, not just your changes.</b> The upload
+									<b>replaces</b> the file in iCM completely. Anything not in
+									your file is gone from that site.
+								</li>
+								<li>
+									<b>Plain CSS only.</b> Not SCSS/Sass, not partials, not files
+									that need building. iCM serves the file exactly as it is.
+								</li>
+								<li>
+									<b>Keep the name the same</b> as the folder
+									(<code>example-site.css</code>).
+								</li>
+								<li>
+									<b>Check links inside the CSS</b>, like images and fonts in
+									<code>url(...)</code>. They must point to places that exist on
+									the website, because only the CSS file is uploaded, not the
+									images or fonts it mentions.
+								</li>
+							</ul>
+							<p>
+								Tip: upload to <b>Development</b> or <b>Test</b> first, check
+								the site looks right, then do Preprod and Live.
+							</p>
+						</section>
 
-        <section class="topic" data-topic="run" hidden>
-          <h3>How to run it</h3>
-          <ol>
-            <li>Build the CSS in GOSS-skin.</li>
-            <li>Double-click <b>Upload CSS</b> on the desktop. (Or in a terminal in the
-                goss-upload folder: <code>npm start</code>, or <code>./run</code> in Git Bash.)</li>
-            <li>In this window: check the sites folder, pick an environment and browser,
-                and tick the sites.</li>
-            <li>Click <b>Start upload</b>. For Live, click it twice to confirm.</li>
-            <li>Log in to iCM in the browser that opens. It deals with the
-                "already logged on" warning and the security questions note by itself, then starts.</li>
-            <li>Leave the browser alone while it works. The black window shows each step and
-                OK or FAIL for each site.</li>
-            <li>When it's finished, press Enter in the black window to close the browser.</li>
-          </ol>
-          <h4>From a terminal, without this window</h4>
-          <p><code>npm run upload:dev -- all</code> uploads every site to Development.
-             Add <code>--note "text"</code>, <code>--significant</code> or
-             <code>--browser chrome</code> if needed.</p>
-        </section>
+						<section class="topic" data-topic="run" hidden>
+							<h3>How to run it</h3>
+							<ol>
+								<li>Build the CSS in GOSS-skin.</li>
+								<li>
+									Double-click <b>Upload CSS</b> on the desktop. (Or in a
+									terminal in the goss-upload folder: <code>npm start</code>, or
+									<code>./run</code> in Git Bash.)
+								</li>
+								<li>
+									In this window: check the sites folder, pick an environment
+									and browser, and tick the sites.
+								</li>
+								<li>
+									Click <b>Start upload</b>. For Live, click it twice to
+									confirm.
+								</li>
+								<li>
+									Log in to iCM in the browser that opens. It deals with the
+									"already logged on" warning and the security questions note by
+									itself, then starts.
+								</li>
+								<li>
+									Leave the browser alone while it works. The black window shows
+									each step and OK or FAIL for each site.
+								</li>
+								<li>
+									When it's finished, press Enter in the black window to close
+									the browser.
+								</li>
+							</ol>
+							<h4>From a terminal, without this window</h4>
+							<p>
+								<code>npm run upload:dev -- all</code> uploads every site to
+								Development. Add <code>--note "text"</code>,
+								<code>--significant</code> or <code>--browser chrome</code> if
+								needed.
+							</p>
+						</section>
 
-        <section class="topic" data-topic="window" hidden>
-          <h3>Using this window</h3>
-          <ul>
-            <li><b>Environment</b>: click one. Live is red and needs two clicks on Start.</li>
-            <li><b>Open iCM in</b>: Edge or Chrome. A browser that isn't installed is greyed out.
-                Your choice is remembered.</li>
-            <li><b>Sites folder</b>: <b>Browse…</b> to pick a different folder (double-click to
-                open folders, then OK), or paste a path and press Enter. Remembered for next time.</li>
-            <li><b>Find site</b> (Ctrl+F): type part of a name to narrow the list.
-                Select all, Select none and Fill blanks only change the sites showing.</li>
-            <li><b>Tick boxes</b>: only ticked sites are uploaded. All start ticked.</li>
-            <li>The <b>×</b> in the blue title bar closes without uploading anything.</li>
-          </ul>
-        </section>
+						<section class="topic" data-topic="window" hidden>
+							<h3>Using this window</h3>
+							<ul>
+								<li>
+									<b>Environment</b>: click one. Live is red and needs two
+									clicks on Start.
+								</li>
+								<li>
+									<b>Open iCM in</b>: Edge or Chrome. A browser that isn't
+									installed is greyed out. Your choice is remembered.
+								</li>
+								<li>
+									<b>Sites folder</b>: <b>Browse…</b> to pick a different folder
+									(double-click to open folders, then OK), or paste a path and
+									press Enter. Remembered for next time.
+								</li>
+								<li>
+									<b>Find site</b> (Ctrl+F): type part of a name to narrow the
+									list. Select all, Select none and Fill blanks only change the
+									sites showing.
+								</li>
+								<li>
+									<b>Tick boxes</b>: only ticked sites are uploaded. All start
+									ticked.
+								</li>
+								<li>
+									The <b>×</b> in the blue title bar closes without uploading
+									anything.
+								</li>
+							</ul>
+						</section>
 
-        <section class="topic" data-topic="notes" hidden>
-          <h3>Version notes and Significant</h3>
-          <p>When a site is saved, iCM shows a <b>Version Control</b> box. It fills that box in for you:</p>
-          <ul>
-            <li><b>Note</b>: type one next to a site to have it saved in iCM's version history.
-                Leave it blank to save with no note.</li>
-            <li><b>Significant</b>: tick it to mark that update as a significant change.</li>
-            <li><b>Same note for all</b>: type a note (and tick Significant if you want),
-                then click <b>Fill blanks</b>. It fills every ticked site that's showing and
-                has no note yet.</li>
-          </ul>
-          <p>Then it presses <b>Update</b>. If the box won't close, it cancels it so the next site
-             isn't blocked, and that site shows as FAIL.</p>
-        </section>
+						<section class="topic" data-topic="notes" hidden>
+							<h3>Version notes and Significant</h3>
+							<p>
+								When a site is saved, iCM shows a <b>Version Control</b> box. It
+								fills that box in for you:
+							</p>
+							<ul>
+								<li>
+									<b>Note</b>: type one next to a site to have it saved in iCM's
+									version history. Leave it blank to save with no note.
+								</li>
+								<li>
+									<b>Significant</b>: tick it to mark that update as a
+									significant change.
+								</li>
+								<li>
+									<b>Same note for all</b>: type a note (and tick Significant if
+									you want), then click <b>Fill blanks</b>. It fills every
+									ticked site that's showing and has no note yet.
+								</li>
+							</ul>
+							<p>
+								Then it presses <b>Update</b>. If the box won't close, it
+								cancels it so the next site isn't blocked, and that site shows
+								as FAIL.
+							</p>
+						</section>
 
-        <section class="topic" data-topic="envs" hidden>
-          <h3>Environments</h3>
-          <ul>
-            <li><b>Development</b> (dev) and <b>Test</b> (tst): safe places to try changes.</li>
-            <li><b>Preprod</b> (prp): the last check before live.</li>
-            <li><b>Live</b> (prd): <b>the real websites</b> the public sees. Upload here only when
-                you've checked the change on another environment.</li>
-          </ul>
-          <p>Each environment's iCM link comes from <code>.env</code>.</p>
-        </section>
+						<section class="topic" data-topic="envs" hidden>
+							<h3>Environments</h3>
+							<ul>
+								<li>
+									<b>Development</b> (dev) and <b>Test</b> (tst): safe places to
+									try changes.
+								</li>
+								<li><b>Preprod</b> (prp): the last check before live.</li>
+								<li>
+									<b>Live</b> (prd): <b>the real websites</b> the public sees.
+									Upload here only when you've checked the change on another
+									environment.
+								</li>
+							</ul>
+							<p>Each environment's iCM link comes from <code>.env</code>.</p>
+						</section>
 
-        <section class="topic" data-topic="icm" hidden>
-          <h3>What it does in iCM</h3>
-          <ol>
-            <li>Opens the iCM login page and waits for you to log in.</li>
-            <li>Opens <b>Content › Media</b>, then the folder
-                <b>Shared resources › Developer › Front end - CSS-JS › dynamic</b>.</li>
-            <li>For each site: double-clicks its CSS item, opens the <b>Files</b> tab, uploads the
-                CSS file, and presses <b>Save this media</b>.</li>
-            <li>Fills in the <b>Version Control</b> box and presses <b>Update</b>.</li>
-            <li>Goes back to the list and does the next site.</li>
-          </ol>
-          <p>It handles iCM's pop-up notes along the way, like the image format note and the
-             spell checker.</p>
-        </section>
+						<section class="topic" data-topic="icm" hidden>
+							<h3>What it does in iCM</h3>
+							<ol>
+								<li>Opens the iCM login page and waits for you to log in.</li>
+								<li>
+									Opens <b>Content › Media</b>, then the folder
+									<b
+										>Shared resources › Developer › Front end - CSS-JS ›
+										dynamic</b
+									>.
+								</li>
+								<li>
+									For each site: double-clicks its CSS item, opens the
+									<b>Files</b> tab, uploads the CSS file, and presses
+									<b>Save this media</b>.
+								</li>
+								<li>
+									Fills in the <b>Version Control</b> box and presses
+									<b>Update</b>.
+								</li>
+								<li>Goes back to the list and does the next site.</li>
+							</ol>
+							<p>
+								It handles iCM's pop-up notes along the way, like the image
+								format note and the spell checker.
+							</p>
+						</section>
 
-        <section class="topic" data-topic="wrong" hidden>
-          <h3>If something goes wrong</h3>
-          <p>A picture is saved in the <code>screenshots</code> folder inside goss-upload, named with
-             the date, time and site. The top says what went wrong and which step it was on;
-             underneath is what the browser was showing. The other sites still carry on.</p>
-          <h4>Common messages</h4>
-          <ul>
-            <li><b>No CSS item in iCM matches</b>: iCM's name for the site is too different from its
-                folder name. See <a href="#" class="topic-jump" data-topic="folder">The sites folder</a>.</li>
-            <li><b>The Version Control box stayed open</b>: iCM wanted something else filled in.
-                Try again with a note.</li>
-            <li><b>Couldn't start Google Chrome</b> (or Edge): that browser isn't installed.
-                Pick the other one.</li>
-            <li><b>… is missing from .env</b>: a setting is missing. See
-                <a href="#" class="topic-jump" data-topic="settings">Settings</a>.</li>
-            <li><b>No sites here</b>: the sites folder is wrong, or the CSS hasn't been built.</li>
-          </ul>
-          <p>Still stuck? See <a href="#" class="topic-jump" data-topic="report">Reporting a problem</a>.</p>
-        </section>
+						<section class="topic" data-topic="wrong" hidden>
+							<h3>If something goes wrong</h3>
+							<p>
+								A picture is saved in the <code>screenshots</code> folder inside
+								goss-upload, named with the date, time and site. The top says
+								what went wrong and which step it was on; underneath is what the
+								browser was showing. The other sites still carry on.
+							</p>
+							<h4>Common messages</h4>
+							<ul>
+								<li>
+									<b>No CSS item in iCM matches</b>: iCM's name for the site is
+									too different from its folder name. See
+									<a href="#" class="topic-jump" data-topic="folder"
+										>The sites folder</a
+									>.
+								</li>
+								<li>
+									<b>The Version Control box stayed open</b>: iCM wanted
+									something else filled in. Try again with a note.
+								</li>
+								<li>
+									<b>Couldn't start Google Chrome</b> (or Edge): that browser
+									isn't installed. Pick the other one.
+								</li>
+								<li>
+									<b>… is missing from .env</b>: a setting is missing. See
+									<a href="#" class="topic-jump" data-topic="settings"
+										>Settings</a
+									>.
+								</li>
+								<li>
+									<b>No sites here</b>: the sites folder is wrong, or the CSS
+									hasn't been built.
+								</li>
+							</ul>
+							<p>
+								Still stuck? See
+								<a href="#" class="topic-jump" data-topic="report"
+									>Reporting a problem</a
+								>.
+							</p>
+						</section>
 
-        <section class="topic" data-topic="settings" hidden>
-          <h3>Settings (.env)</h3>
-          <p>The easiest way to change them is <b>Settings…</b> in this window's menu.
-             The first time it's run, the Settings box opens by itself.</p>
-          <p>They're saved in the <code>.env</code> file in the goss-upload folder. Every one is
-             needed except <b>BROWSER</b>; if one is missing it stops and says which.
-             Don't put passwords in it.</p>
-<pre>SITES_DIR=../GOSS-skin/global/sites
-ICM_DEV_URL=https://ncc1-dev.gosshosted.com/...
-ICM_TST_URL=https://ncc1-tst.gosshosted.com/...
-ICM_PRP_URL=https://ncc1-prp.gosshosted.com/...
-ICM_PRD_URL=https://ncc1-prd.gosshosted.com/...
+						<section class="topic" data-topic="settings" hidden>
+							<h3>Settings (.env)</h3>
+							<p>
+								The easiest way to change them is <b>Settings…</b> in this
+								window's menu. The first time it's run, the Settings box opens
+								by itself.
+							</p>
+							<p>
+								They're saved in the <code>.env</code> file in the goss-upload
+								folder. Every one is needed except <b>BROWSER</b>; if one is
+								missing it stops and says which. Don't put passwords in it.
+							</p>
+							<pre>
+SITES_DIR=../GOSS-skin/global/sites
+ICM_DEV_URL=https://your-icm-dev.example.com/enterprise/icm/admin/index.cfm
+ICM_TST_URL=https://your-icm-tst.example.com/enterprise/icm/admin/index.cfm
+ICM_PRP_URL=https://your-icm-prp.example.com/enterprise/icm/admin/index.cfm
+ICM_PRD_URL=https://your-icm-prd.example.com/enterprise/icm/admin/index.cfm
 BROWSER=msedge
-LEARN_MODE=false</pre>
-          <ul>
-            <li><b>SITES_DIR</b>: the sites folder. A full path, or relative to goss-upload.
-                Changing it in this window updates it for you.</li>
-            <li><b>ICM_…_URL</b>: the iCM login page for each environment.</li>
-            <li><b>BROWSER</b>: <code>msedge</code> or <code>chrome</code>. Optional: leave it out
-                and pick the browser in this window instead. Picking one here updates it for you.</li>
-            <li><b>LEARN_MODE</b>: <code>true</code> uploads the first ticked site only and saves
-                extra pictures, for testing. Normally <code>false</code>.</li>
-          </ul>
-        </section>
+LEARN_MODE=false</pre
+							>
+							<p class="field-help">
+								The links above are examples. Use your own iCM login page for
+								each environment (your team will know these).
+							</p>
+							<ul>
+								<li>
+									<b>SITES_DIR</b>: the sites folder. A full path, or relative
+									to goss-upload. Changing it in this window updates it for you.
+								</li>
+								<li>
+									<b>ICM_…_URL</b>: the iCM login page for each environment.
+								</li>
+								<li>
+									<b>BROWSER</b>: <code>msedge</code> or <code>chrome</code>.
+									Optional: leave it out and pick the browser in this window
+									instead. Picking one here updates it for you.
+								</li>
+								<li>
+									<b>LEARN_MODE</b>: <code>true</code> uploads the first ticked
+									site only and saves extra pictures, for testing. Normally
+									<code>false</code>.
+								</li>
+							</ul>
+						</section>
 
-        <section class="topic" data-topic="report" hidden>
-          <h3>Reporting a problem</h3>
-          <p>Report problems, or ask for changes, on GitHub:</p>
-          <p class="report-link">
-            <a href="https://github.com/Efury1/GOSS_AUTOMATION_UPLOAD/issues" target="_blank"
-               rel="noopener">github.com/Efury1/GOSS_AUTOMATION_UPLOAD</a>
-          </p>
-          <ol>
-            <li>Open the link above and go to the <b>Issues</b> tab.</li>
-            <li>Click <b>New issue</b>.</li>
-            <li>Give it a short title, like <i>"tolhouse-gaol fails at Version Control on Test"</i>.</li>
-          </ol>
-          <h4>What to include</h4>
-          <ul>
-            <li><b>What you were doing</b>: environment, browser and which sites.</li>
-            <li><b>What happened</b>, and what you expected to happen.</li>
-            <li><b>The failure picture</b> from the <code>screenshots</code> folder (drag it into the issue).</li>
-            <li><b>The text from the black window</b>: select it, copy, and paste it into the issue.</li>
-          </ul>
-          <p><b>Don't include</b> passwords or anything private. Check the pictures don't show
-             anything that shouldn't be shared.</p>
-        </section>
-      </div>
-    </div>
+						<section class="topic" data-topic="report" hidden>
+							<h3>Reporting a problem</h3>
+							<p>Report problems, or ask for changes, on GitHub:</p>
+							<p class="report-link">
+								<a
+									href="https://github.com/Efury1/GOSS_AUTOMATION_UPLOAD/issues"
+									target="_blank"
+									rel="noopener"
+									>github.com/Efury1/GOSS_AUTOMATION_UPLOAD</a
+								>
+							</p>
+							<ol>
+								<li>Open the link above and go to the <b>Issues</b> tab.</li>
+								<li>Click <b>New issue</b>.</li>
+								<li>
+									Give it a short title, like
+									<i>"example-site fails at Version Control on Test"</i>.
+								</li>
+							</ol>
+							<h4>What to include</h4>
+							<ul>
+								<li>
+									<b>What you were doing</b>: environment, browser and which
+									sites.
+								</li>
+								<li><b>What happened</b>, and what you expected to happen.</li>
+								<li>
+									<b>The failure picture</b> from the
+									<code>screenshots</code> folder (drag it into the issue).
+								</li>
+								<li>
+									<b>The text from the black window</b>: select it, copy, and
+									paste it into the issue.
+								</li>
+							</ul>
+							<p>
+								<b>Don't include</b> passwords or anything private. Check the
+								pictures don't show anything that shouldn't be shared.
+							</p>
+						</section>
+					</div>
+				</div>
 
-    <div class="actions">
-      <button type="button" class="button" id="help-ok"><span>OK</span></button>
-    </div>
-  </div>
-</div>
-<!--
+				<div class="actions">
+					<button type="button" class="button" id="help-ok">
+						<span>OK</span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<!--
   Templates: the repeated bits of the window. picker.js copies one for each
   environment, shortcut, site and folder, and fills in the words.
 -->
-<template id="env-template">
-  <button type="button" class="env"><strong class="env-label"></strong><span class="env-name"></span></button>
-</template>
+		<template id="env-template">
+			<button type="button" class="env">
+				<strong class="env-label"></strong><span class="env-name"></span>
+			</button>
+		</template>
 
-<template id="browser-template">
-  <label class="browser-option">
-    <input type="radio" name="browser" class="browser-choice">
-    <span class="browser-name"></span>
-    <span class="browser-note"></span>
-  </label>
-</template>
+		<template id="browser-template">
+			<label class="browser-option">
+				<input type="radio" name="browser" class="browser-choice" />
+				<span class="browser-name"></span>
+				<span class="browser-note"></span>
+			</label>
+		</template>
 
-<template id="shortcut-template">
-  <button type="button" class="button"><span class="shortcut-label"></span></button>
-</template>
+		<template id="shortcut-template">
+			<button type="button" class="button">
+				<span class="shortcut-label"></span>
+			</button>
+		</template>
 
-<template id="site-row-template">
-  <div class="site-row">
-    <label><input type="checkbox" class="pick"><span class="site-name"></span></label>
-    <input type="text" class="note" maxlength="250" placeholder="Version history note (optional)">
-    <label class="sig-label" title="Mark this update as a significant change in iCM&#39;s version history">
-      <input type="checkbox" class="sig"><span>Significant</span></label>
-  </div>
-</template>
+		<template id="site-row-template">
+			<div class="site-row">
+				<label
+					><input type="checkbox" class="pick" /><span class="site-name"></span
+				></label>
+				<input
+					type="text"
+					class="note"
+					maxlength="250"
+					placeholder="Version history note (optional)"
+				/>
+				<label
+					class="sig-label"
+					title="Mark this update as a significant change in iCM&#39;s version history"
+				>
+					<input type="checkbox" class="sig" /><span>Significant</span></label
+				>
+			</div>
+		</template>
 
-<template id="folder-template">
-  <button type="button" class="folder-item" role="option">
-    <svg viewBox="0 0 18 16" aria-hidden="true"><path d="M1 3h6l2 2h8v10H1z" fill="#ffd94a" stroke="#806000"/><path d="M1 6h16" stroke="#806000"/></svg>
-    <span class="folder-name"></span>
-  </button>
-</template>
+		<template id="folder-template">
+			<button type="button" class="folder-item" role="option">
+				<svg viewBox="0 0 18 16" aria-hidden="true">
+					<path d="M1 3h6l2 2h8v10H1z" fill="#ffd94a" stroke="#806000" />
+					<path d="M1 6h16" stroke="#806000" />
+				</svg>
+				<span class="folder-name"></span>
+			</button>
+		</template>
 
-<template id="no-folders-template">
-  <p class="empty">No folders in here.</p>
-</template>
+		<template id="no-folders-template">
+			<p class="empty">No folders in here.</p>
+		</template>
 
-<script src="preview.js"></script>
-<script src="picker.js"></script>
-</body></html>
+		<script src="preview.js"></script>
+		<script src="picker.js"></script>
+	</body>
+</html>
