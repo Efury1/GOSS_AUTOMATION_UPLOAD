@@ -44,9 +44,23 @@
  *     folder name. Add it to ALIASES below, e.g. { recycles: 'Norfolk Recycles' }.
  */
 
-const { chromium } = require('playwright');
 const fileSystem = require('fs');
 const path = require('path');
+const { createRequire } = require('module');
+
+/**
+ * The goss-upload folder: where .env, picker\, report\ and screenshots\ live.
+ * Run as a script, that's this file's folder. Built into "Upload CSS.exe"
+ * (see build-exe.js), it's the folder the .exe is in.
+ */
+const runningAsExe = (() => {
+  try { return require('node:sea').isSea(); } catch { return false; }
+})();
+const APP_DIR = runningAsExe ? path.dirname(process.execPath) : __dirname;
+
+// Playwright is loaded from the node_modules folder in APP_DIR. (The .exe can't
+// carry it inside, so it sits next to the .exe in the same folder.)
+const { chromium } = createRequire(path.join(APP_DIR, 'upload-css.js'))('playwright');
 const readline = require('readline');
 const os = require('os');
 const { pathToFileURL } = require('url');
@@ -55,7 +69,7 @@ const { pathToFileURL } = require('url');
 // Settings from .env
 // ============================================================================
 
-const ENV_FILE = path.join(__dirname, '.env');
+const ENV_FILE = path.join(APP_DIR, '.env');
 
 // Filled in by loadSettings(), the first thing main() does. Loading them there
 // (not here at the top) means a missing setting shows a message and waits for
@@ -122,7 +136,7 @@ function readEnvFile(filePath) {
 function loadEnv({ allowMissing = false } = {}) {
   if (!fileSystem.existsSync(ENV_FILE)) {
     if (allowMissing) return { values: {}, missing: [...REQUIRED_SETTINGS] };
-    throw new Error(`No .env file in ${__dirname}.\n`
+    throw new Error(`No .env file in ${APP_DIR}.\n`
       + 'Run it without naming sites to fill in the settings in the window, '
       + 'or copy .env.example to .env (same folder) and check the values in it.');
   }
@@ -155,7 +169,7 @@ function loadEnv({ allowMissing = false } = {}) {
 
 /** The values in .env.example, used to fill in the Settings box the first time. */
 function exampleSettings() {
-  const examplePath = path.join(__dirname, '.env.example');
+  const examplePath = path.join(APP_DIR, '.env.example');
   return fileSystem.existsSync(examplePath) ? readEnvFile(examplePath).values : {};
 }
 
@@ -167,7 +181,7 @@ function checkSettingsForm(form) {
   const problems = [];
   const looksLikeLink = text => /^https?:\/\/\S+$/i.test(text);
   if (!form.SITES_DIR) problems.push({ field: 'SITES_DIR', message: 'Choose the sites folder.' });
-  else if (!fileSystem.existsSync(path.resolve(__dirname, form.SITES_DIR))) {
+  else if (!fileSystem.existsSync(path.resolve(APP_DIR, form.SITES_DIR))) {
     problems.push({ field: 'SITES_DIR', message: "That sites folder doesn't exist." });
   }
   for (const name of environmentNames) {
@@ -237,7 +251,7 @@ function loadSettings({ allowMissing = false } = {}) {
 
   CONFIG = {
     // full path, or relative to goss-upload; null until it's set
-    sitesDir: envValues.SITES_DIR ? path.resolve(__dirname, envValues.SITES_DIR) : null,
+    sitesDir: envValues.SITES_DIR ? path.resolve(APP_DIR, envValues.SITES_DIR) : null,
     browserChannel: envValues.BROWSER ? envValues.BROWSER.toLowerCase() : null, // null: pick it in the window
     learnMode: (envValues.LEARN_MODE || '').toLowerCase() === 'true',
   };
@@ -419,13 +433,13 @@ async function launchBrowser(launch, channel) {
 }
 
 /** Where failure pictures (and learn-mode dumps) are saved. */
-const SCREENSHOTS_DIR = path.join(__dirname, 'screenshots');
+const SCREENSHOTS_DIR = path.join(APP_DIR, 'screenshots');
 
 /** The page used to make a failure picture: the message on top, the screenshot below. */
-const FAILURE_REPORT_PAGE = path.join(__dirname, 'report', 'failure-report.html');
+const FAILURE_REPORT_PAGE = path.join(APP_DIR, 'report', 'failure-report.html');
 
 /** The picker window's files: picker.html, with picker.css and picker.js beside it. */
-const PICKER_PAGE = path.join(__dirname, 'picker', 'picker.html');
+const PICKER_PAGE = path.join(APP_DIR, 'picker', 'picker.html');
 
 const PICKER_WINDOW = { width: 860, height: 880 };
 
@@ -916,7 +930,7 @@ function getAllSites(folder = CONFIG.sitesDir) {
 
 /** What the picker shows for a folder: its sites, or why there aren't any. */
 function describeFolder(folder) {
-  const fullPath = path.resolve(__dirname, String(folder || '').trim() || '.');
+  const fullPath = path.resolve(APP_DIR, String(folder || '').trim() || '.');
   if (!fileSystem.existsSync(fullPath) || !fileSystem.statSync(fullPath).isDirectory()) {
     return { folder: fullPath, sites: [], error: "That folder doesn't exist." };
   }
@@ -943,7 +957,7 @@ function listFolder(folder) {
     return { path: '', parent: null, folders: drives.map(drive => ({ name: drive, path: drive })), siteCount: 0 };
   }
 
-  const fullPath = path.resolve(__dirname, wanted || '/');
+  const fullPath = path.resolve(APP_DIR, wanted || '/');
   let entries;
   try {
     entries = fileSystem.readdirSync(fullPath, { withFileTypes: true });
@@ -970,7 +984,7 @@ function folderShortcuts() {
   const home = os.homedir();
   return [
     { label: 'Current sites folder', path: CONFIG.sitesDir },
-    { label: 'Repos', path: path.resolve(__dirname, '..') },
+    { label: 'Repos', path: path.resolve(APP_DIR, '..') },
     { label: 'Home', path: home },
     { label: 'Desktop', path: path.join(home, 'Desktop') },
     ...(isWindows ? [{ label: 'This PC', path: '' }] : []),
