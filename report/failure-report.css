@@ -1,0 +1,47 @@
+/* failure-report.css: the look of the failure picture (failure-report.html). */
+
+body {
+  margin: 0;
+  background: #c0c0c0;
+  color: #000;
+  font: 15px/1.45 Tahoma, "Segoe UI", sans-serif;
+}
+
+.banner {
+  background: #fff;
+  border-bottom: 4px solid #800000;
+  padding: 16px 20px 14px;
+}
+
+.banner h1 {
+  margin: 0 0 6px;
+  font-size: 22px;
+  color: #800000;
+}
+
+.message {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  background: #ffffe1;
+  border: 1px solid #806000;
+  font-size: 16px;
+  font-weight: bold;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 6px 20px;
+  margin: 0;
+}
+
+.details div { display: flex; gap: 8px; min-width: 0; }
+.details dt { font-weight: bold; white-space: nowrap; }
+.details dd { margin: 0; overflow-wrap: anywhere; }
+
+.shot { padding: 14px 20px 20px; }
+.shot h2 { margin: 0 0 8px; font-size: 15px; }
+.shot img { display: block; max-width: 100%; border: 2px solid #000; background: #fff; }
+.no-shot { margin: 0; font-style: italic; }

@@ -1,0 +1,32 @@
+<!doctype html>
+<!--
+  failure-report.html: the page saved as a picture when something fails.
+  upload-css.js opens it, fills in the details and the screenshot, and saves
+  it in the screenshots folder. Looks: failure-report.css.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Upload CSS: something went wrong</title>
+<link rel="stylesheet" href="failure-report.css">
+</head>
+<body>
+  <header class="banner">
+    <h1 id="title">Upload failed</h1>
+    <p class="message" id="message"></p>
+    <dl class="details">
+      <div><dt>Site</dt><dd id="site"></dd></div>
+      <div><dt>Environment</dt><dd id="environment"></dd></div>
+      <div><dt>Step</dt><dd id="step"></dd></div>
+      <div><dt>When</dt><dd id="when"></dd></div>
+      <div><dt>CSS file</dt><dd id="file"></dd></div>
+    </dl>
+  </header>
+
+  <section class="shot">
+    <h2>What Edge was showing</h2>
+    <img id="screenshot" alt="Edge at the moment it failed">
+    <p class="no-shot" id="no-shot" hidden>No screenshot: Edge's page had already closed.</p>
+  </section>
+</body>
+</html>
