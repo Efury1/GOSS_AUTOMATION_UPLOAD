@@ -1,6 +1,6 @@
-
-
 # GOSS Automation Upload — CSS upload tool for the GOSS Digital Platform (iCM)
+
+![The Upload CSS to iCM window](Images/example1.png)
 
 An automation tool for the **GOSS Digital Platform** that bulk-uploads site CSS to
 **GOSS iCM** Media. It saves you opening every site's CSS item in iCM and uploading the
@@ -91,6 +91,8 @@ Either way, you need **Microsoft Edge or Google Chrome** installed.
    When it's done, press Enter there to close.
 
 ### Straight from the terminal (no window)
+
+![Running it from the terminal](Images/run-file.png)
 
 | Command | What it does |
 |---|---|
