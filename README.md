@@ -1,4 +1,4 @@
-# GOSS Automation Upload — CSS upload tool for the GOSS Digital Platform (iCM)
+# GOSS Automation Upload - CSS upload tool for the GOSS Digital Platform (iCM)
 
 ![The Upload CSS to iCM window](Images/example1.png)
 
